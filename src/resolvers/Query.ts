@@ -10,5 +10,8 @@ export const Query = {
   },
   users(parent, args, context: Context) {
     return context.prisma.users()
+  },
+  decks(parent, args, context: Context) {
+    return context.prisma.decks()
   }
 }

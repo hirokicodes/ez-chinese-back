@@ -1,12 +1,13 @@
 type Query {
   hanzi(hanzi: String!): [Hanzi!]!
   users(data: QueryUsersInput): [User!]!
+  decks(data: QueryDecksInput): [Deck!]!
 }
 
 type Mutation {
   signup(data: SignupUserInput!): AuthPayload!
   login(email: String!, password: String!): AuthPayload!
-  createDeck(data: CreateDeckInput!): Deck!
+  createDeck(deckName: String!): Deck!
   deleteDeck(id: ID!): Deck!
   addHanziToDeck(data: HanziToDeckInput!): Deck!
   removeHanziFromDeck(data: HanziToDeckInput!): Deck!
@@ -21,14 +22,17 @@ input QueryUsersInput {
   after: String
 }
 
+input QueryDecksInput {
+  query: String,
+  first: Int,
+  skip: Int,
+  after: String
+}
+
 input SignupUserInput {
   username: String!
   email: String!
   password: String!
-}
-
-input CreateDeckInput {
-  deckName: String!
 }
 
 input HanziToDeckInput {
