@@ -1,0 +1,33 @@
+type User {
+  id: ID! @unique
+  username: String! @unique
+  email: String! @unique
+  password: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  bookmarkedHanzis: [Hanzi!]! @relation(name: "UserToHanzi")
+  decks: [Deck!]! @relation(name: "UserToDeck")
+}
+
+type Deck {
+  id: ID! @unique
+  name: String!
+  hanzis: [Hanzi!]! @relation(name: "DeckToHanzi")
+  creator: User! @relation(name: "UserToDeck")
+}
+
+type Hanzi {
+  id: ID! @unique
+  traditional: String!
+  simplified: String!
+  referencedTraditional: String
+  referencedSimplified: String
+  pinyinNumeric: String
+  pinyinDiacritic: String
+  definitions: String!
+  definitionsDiacritic: String
+  updatedAt: DateTime!
+  createdAt: DateTime!
+  usersBookmarked: [User!]! @relation(name: "UserToHanzi")
+  decksIncluded: [Deck!]! @relation(name: "DeckToHanzi")
+}

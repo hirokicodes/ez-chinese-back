@@ -1,0 +1,75 @@
+type Query {
+  hanzi(hanzi: String!): [Hanzi!]!
+  users(data: QueryUsersInput): [User!]!
+}
+
+type Mutation {
+  signup(data: SignupUserInput!): AuthPayload!
+  login(email: String!, password: String!): AuthPayload!
+  createDeck(data: CreateDeckInput!): Deck!
+  deleteDeck(id: ID!): Deck!
+  addHanziToDeck(data: HanziToDeckInput!): Deck!
+  removeHanziFromDeck(data: HanziToDeckInput!): Deck!
+  bookmarkHanzi(id: ID!): Hanzi!
+  unbookmarkHanzi(id: ID!): Hanzi!
+}
+
+input QueryUsersInput {
+  query: String,
+  first: Int,
+  skip: Int,
+  after: String
+}
+
+input SignupUserInput {
+  username: String!
+  email: String!
+  password: String!
+}
+
+input CreateDeckInput {
+  deckName: String!
+}
+
+input HanziToDeckInput {
+  hanziId: ID!
+  deckID: ID!
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  password: String!
+  updatedAt: String!
+  createdAt: String!
+  bookmarkedHanzis: [Hanzi!]!
+}
+
+type Deck {
+  id: ID!
+  name: String!
+  hanzis: [Hanzi!]!
+  creator: User!
+}
+
+type Hanzi {
+  id: ID!
+  traditional: String!
+  simplified: String!
+  referencedTraditional: String
+  referencedSimplified: String
+  pinyinNumeric: String
+  pinyinDiacritic: String
+  definitions: String!
+  definitionsDiacritic: String
+  updatedAt: String!
+  createdAt: String!
+  usersBookmarked: [User!]!
+  decksIncluded: [Deck!]!
+}
