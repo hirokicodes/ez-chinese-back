@@ -1,7 +1,10 @@
 import { Context } from '../utils'
 
 export const User = {
-  bookmarkedHanzis: (parent, args, context) => {
-    return context.prisma.user({ id: parent.id }).bookmarkedHanzis()
+  bookmarkedHanzis: ({ id }, args, ctx: Context) => {
+    return ctx.prisma.user({ id }).bookmarkedHanzis()
+  },
+  decks: ({ id }, args, ctx: Context) => {
+    return ctx.prisma.user({ id }).decks()
   }
 }
