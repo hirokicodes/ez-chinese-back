@@ -3,6 +3,7 @@ import { Subscription } from './Subscription'
 import { auth } from './Mutation/auth'
 import { post } from './Mutation/post'
 import { deck } from './Mutation/deck'
+import { user } from './Mutation/user'
 import { User } from './User'
 import { Post } from './Post'
 import { Deck } from './Deck'
@@ -12,7 +13,8 @@ export default {
   Mutation: {
     ...auth,
     // ...post,
-    ...deck
+    ...deck,
+    ...user
   },
   // Subscription,
   User,

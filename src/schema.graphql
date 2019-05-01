@@ -2,6 +2,7 @@ type Query {
   hanzi(hanzi: String!): [Hanzi!]!
   users(data: QueryUsersInput): [User!]!
   decks(data: QueryDecksInput): [Deck!]!
+  me: User
 }
 
 type Mutation {
@@ -9,10 +10,10 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload!
   createDeck(deckName: String!): Deck!
   deleteDeck(id: ID!): Deck!
-  addHanziToDeck(data: HanziToDeckInput!): Deck!
-  removeHanziFromDeck(data: HanziToDeckInput!): Deck!
-  bookmarkHanzi(id: ID!): Hanzi!
-  unbookmarkHanzi(id: ID!): Hanzi!
+  addHanziToDeck(hanziId: ID!, deckId: ID!): Deck!
+  removeHanziFromDeck(hanziId: ID!, deckId: ID!): Deck!
+  bookmarkHanzi(id: ID!): User!
+  unbookmarkHanzi(id: ID!): User!
 }
 
 input QueryUsersInput {
@@ -33,11 +34,6 @@ input SignupUserInput {
   username: String!
   email: String!
   password: String!
-}
-
-input HanziToDeckInput {
-  hanziId: ID!
-  deckID: ID!
 }
 
 type AuthPayload {
