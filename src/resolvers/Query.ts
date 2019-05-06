@@ -1,21 +1,35 @@
-import { getUserId, Context } from '../utils'
+import { getUserId, Context } from "../utils";
 
 export const Query = {
   me(parent, args, ctx: Context) {
-    const id = getUserId(ctx)
-    return ctx.prisma.user({ id })
+    const id = getUserId(ctx);
+    return ctx.prisma.user({ id });
   },
-  hanzi(parent, args, ctx: Context) {
+  hanzisInText(parent, args, ctx: Context) {
+    const array = args.text.split("");
+    const input = array.map(hanzi => {
+      return {
+        OR: [
+          {
+            traditional_starts_with: hanzi
+          },
+          {
+            simplified_starts_with: hanzi
+          }
+        ]
+      };
+    });
+
     return ctx.prisma.hanzis({
       where: {
-        traditional_contains: args.hanzi
+        OR: input
       }
-    })
+    });
   },
   users(parent, args, ctx: Context) {
-    return ctx.prisma.users()
+    return ctx.prisma.users();
   },
   decks(parent, args, ctx: Context) {
-    return ctx.prisma.decks()
+    return ctx.prisma.decks();
   }
-}
+};

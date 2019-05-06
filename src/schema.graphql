@@ -1,5 +1,5 @@
 type Query {
-  hanzi(hanzi: String!): [Hanzi!]!
+  hanzisInText(text: String!): [Hanzi!]!
   users(data: QueryUsersInput): [User!]!
   decks(data: QueryDecksInput): [Deck!]!
   me: User
@@ -17,16 +17,16 @@ type Mutation {
 }
 
 input QueryUsersInput {
-  query: String,
-  first: Int,
-  skip: Int,
+  query: String
+  first: Int
+  skip: Int
   after: String
 }
 
 input QueryDecksInput {
-  query: String,
-  first: Int,
-  skip: Int,
+  query: String
+  first: Int
+  skip: Int
   after: String
 }
 
