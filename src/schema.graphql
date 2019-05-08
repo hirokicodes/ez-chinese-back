@@ -1,5 +1,6 @@
 type Query {
   hanzisInText(text: String!): [Hanzi!]!
+  hanziObjectsFromText(text: String!): [Hanzi!]!
   users(data: QueryUsersInput): [User!]!
   decks(data: QueryDecksInput): [Deck!]!
   me: User
