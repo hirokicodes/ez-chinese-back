@@ -2,6 +2,7 @@ type Query {
   hanzisInText(text: String!): [Hanzi!]!
   hanziObjectsFromText(text: String!): [Hanzi!]!
   users(data: QueryUsersInput): [User!]!
+  flashcards(data: QueryFlashcardsInput): [Flashcard!]!
   decks(data: QueryDecksInput): [Deck!]!
   me: User
 }
@@ -11,13 +12,20 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload!
   createDeck(deckName: String!): Deck!
   deleteDeck(id: ID!): Deck!
-  addHanziToDeck(hanziId: ID!, deckId: ID!): Deck!
-  removeHanziFromDeck(hanziId: ID!, deckId: ID!): Deck!
-  bookmarkHanzi(id: ID!): User!
-  unbookmarkHanzi(id: ID!): User!
+  addFlashcardToDeck(flashcardId: ID!, deckId: ID!): Deck!
+  removeFlashcardFromDeck(flashcardId: ID!, deckId: ID!): Deck!
+  createFlashcard(id: ID!): Flashcard!
+  deleteFlashcard(id: ID!): Flashcard!
 }
 
 input QueryUsersInput {
+  query: String
+  first: Int
+  skip: Int
+  after: String
+}
+
+input QueryFlashcardsInput {
   query: String
   first: Int
   skip: Int
@@ -49,15 +57,28 @@ type User {
   password: String!
   updatedAt: String!
   createdAt: String!
-  bookmarkedHanzis: [Hanzi!]!
+  flashcards: [Flashcard!]!
   decks: [Deck!]!
+}
+
+type Flashcard {
+  id: ID!
+  hanzi: Hanzi!
+  user: User!
+  comfortLevel: Int!
+  decks: [Deck!]!
+  updatedAt: String!
+  createdAt: String!
 }
 
 type Deck {
   id: ID!
   name: String!
-  hanzis: [Hanzi!]!
+  description: String!
+  flashcards: [Flashcard!]!
   creator: User!
+  updatedAt: String!
+  createdAt: String!
 }
 
 type Hanzi {
@@ -72,6 +93,5 @@ type Hanzi {
   definitionsDiacritic: String
   updatedAt: String!
   createdAt: String!
-  usersBookmarked: [User!]!
-  decksIncluded: [Deck!]!
+  flashcards: [Flashcard!]!
 }

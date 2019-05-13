@@ -1,10 +1,10 @@
-import { Context } from '../utils'
+import { Context } from "../utils";
 
 export const Deck = {
-  hanzis: ({ id }, args, ctx: Context) => {
-    return ctx.prisma.deck({ id }).hanzis()
+  flashcards: ({ id }, args, ctx: Context) => {
+    return ctx.prisma.deck({ id }).flashcards();
   },
   creator: ({ id }, args, ctx: Context) => {
-    return ctx.prisma.deck({ id }).creator()
+    return ctx.prisma.deck({ id }).creator();
   }
-}
+};

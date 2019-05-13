@@ -1,53 +1,58 @@
-import { getUserId, Context } from '../../utils'
+import { getUserId, Context } from "../../utils";
 
 export const deck = {
   async createDeck(parent, { deckName }, ctx: Context, info) {
-    const userId = getUserId(ctx)
+    const userId = getUserId(ctx);
     return ctx.prisma.createDeck({
       name: deckName,
       creator: {
         connect: { id: userId }
       }
-    })
+    });
   },
   async deleteDeck(parent, { id }, ctx: Context, info) {
-    const userId = getUserId(ctx)
+    const userId = getUserId(ctx);
     const deckExists = await ctx.prisma.$exists.deck({
       id
-    })
+    });
     if (!deckExists) {
-      throw new Error(`Deck does not exist`)
+      throw new Error(`Deck does not exist`);
     }
 
     const isCreator = await ctx.prisma.$exists.deck({
       creator: {
         id: userId
       }
-    })
+    });
     if (!isCreator) {
-      throw new Error(`You are not the creator`)
+      throw new Error(`You are not the creator`);
     }
 
     return ctx.prisma.deleteDeck({
       id
-    })
+    });
   },
-  async addHanziToDeck(parent, { hanziId, deckId }, ctx: Context, info) {
-    const userId = getUserId(ctx)
+  async addFlashcardToDeck(
+    parent,
+    { flashcardId, deckId },
+    ctx: Context,
+    info
+  ) {
+    const userId = getUserId(ctx);
     const deckExists = await ctx.prisma.$exists.deck({
       id: deckId
-    })
+    });
     if (!deckExists) {
-      throw new Error(`Deck does not exist`)
+      throw new Error(`Deck does not exist`);
     }
 
     const isCreator = await ctx.prisma.$exists.deck({
       creator: {
         id: userId
       }
-    })
+    });
     if (!isCreator) {
-      throw new Error(`You are not the creator`)
+      throw new Error(`You are not the creator`);
     }
 
     return ctx.prisma.updateDeck({
@@ -55,30 +60,35 @@ export const deck = {
         id: deckId
       },
       data: {
-        hanzis: {
+        flashcards: {
           connect: {
-            id: hanziId
+            id: flashcardId
           }
         }
       }
-    })
+    });
   },
-  async removeHanziFromDeck(parent, { hanziId, deckId }, ctx: Context, info) {
-    const userId = getUserId(ctx)
+  async removeFlashcardFromDeck(
+    parent,
+    { flashcardId, deckId },
+    ctx: Context,
+    info
+  ) {
+    const userId = getUserId(ctx);
     const deckExists = await ctx.prisma.$exists.deck({
       id: deckId
-    })
+    });
     if (!deckExists) {
-      throw new Error(`Deck does not exist`)
+      throw new Error(`Deck does not exist`);
     }
 
     const isCreator = await ctx.prisma.$exists.deck({
       creator: {
         id: userId
       }
-    })
+    });
     if (!isCreator) {
-      throw new Error(`You are not the creator`)
+      throw new Error(`You are not the creator`);
     }
 
     return ctx.prisma.updateDeck({
@@ -86,12 +96,12 @@ export const deck = {
         id: deckId
       },
       data: {
-        hanzis: {
+        flashcards: {
           disconnect: {
-            id: hanziId
+            id: flashcardId
           }
         }
       }
-    })
+    });
   }
-}
+};

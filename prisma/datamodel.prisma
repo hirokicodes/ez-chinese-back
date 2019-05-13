@@ -1,23 +1,37 @@
 type User {
-  id: ID! @unique
+  id: ID! @id
   username: String! @unique
   email: String! @unique
   password: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  bookmarkedHanzis: [Hanzi!]! @relation(name: "UserToHanzi")
-  decks: [Deck!]! @relation(name: "UserToDeck")
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  flashcards: [Flashcard!]!
+    @relation(name: "FlashcardOfUser", onDelete: CASCADE)
+  decks: [Deck!]! @relation(name: "DeckOfUser", onDelete: CASCADE)
+}
+
+type Flashcard {
+  id: ID! @id
+  hanzi: Hanzi! @relation(name: "HanziAsFlashcard")
+  user: User! @relation(name: "FlashcardOfUser")
+  comfortLevel: Int!
+  decks: [Deck!]! @relation(name: "FlashcardInDeck")
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
 }
 
 type Deck {
-  id: ID! @unique
+  id: ID! @id
   name: String!
-  hanzis: [Hanzi!]! @relation(name: "DeckToHanzi")
-  creator: User! @relation(name: "UserToDeck")
+  description: String
+  flashcards: [Flashcard!]! @relation(name: "FlashcardInDeck")
+  creator: User! @relation(name: "DeckOfUser")
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
 }
 
 type Hanzi {
-  id: ID! @unique
+  id: ID! @id
   traditional: String!
   simplified: String!
   referencedTraditional: String
@@ -26,8 +40,7 @@ type Hanzi {
   pinyinDiacritic: String
   definitions: String!
   definitionsDiacritic: String
-  updatedAt: DateTime!
-  createdAt: DateTime!
-  usersBookmarked: [User!]! @relation(name: "UserToHanzi")
-  decksIncluded: [Deck!]! @relation(name: "DeckToHanzi")
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+  flashcards: [Flashcard!]! @relation(name: "HanziAsFlashcard")
 }

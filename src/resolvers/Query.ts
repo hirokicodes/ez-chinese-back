@@ -6,6 +6,16 @@ export const Query = {
     const id = getUserId(ctx);
     return ctx.prisma.user({ id });
   },
+  flashcards(parent, args, ctx: Context) {
+    const id = getUserId(ctx);
+    return ctx.prisma.flashcards({
+      where: {
+        user: {
+          id
+        }
+      }
+    });
+  },
   hanzisInText(parent, args, ctx: Context) {
     const array = args.text.split("");
     const input = array.map(hanzi => {
