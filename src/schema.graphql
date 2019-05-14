@@ -74,7 +74,7 @@ type Flashcard {
 type Deck {
   id: ID!
   name: String!
-  description: String!
+  description: String
   flashcards: [Flashcard!]!
   creator: User!
   updatedAt: String!
