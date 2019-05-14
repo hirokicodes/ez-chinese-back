@@ -1,7 +1,7 @@
 import { getUserId, Context } from "../../utils";
 
 export const flashcard = {
-  async createFlashcard(parent, { id }, ctx: Context) {
+  async createFlashcard(parent, { id, comfortLevel }, ctx: Context) {
     const userId = getUserId(ctx);
 
     const flashcardExists = await ctx.prisma.$exists.flashcard({
@@ -28,7 +28,7 @@ export const flashcard = {
           id: userId
         }
       },
-      comfortLevel: 1
+      comfortLevel: comfortLevel || 1
     });
   },
 
