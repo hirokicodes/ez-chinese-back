@@ -4,6 +4,7 @@ type Query {
   users(data: QueryUsersInput): [User!]!
   flashcards(data: QueryFlashcardsInput): [Flashcard!]!
   decks(data: QueryDecksInput): [Deck!]!
+  deck(id: ID!): Deck!
   me: User
 }
 

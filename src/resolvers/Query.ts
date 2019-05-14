@@ -90,6 +90,11 @@ export const Query = {
   users(parent, args, ctx: Context) {
     return ctx.prisma.users();
   },
+  deck(parent, args, ctx: Context) {
+    return ctx.prisma.deck({
+      id: args.id
+    });
+  },
   decks(parent, args, ctx: Context) {
     return ctx.prisma.decks();
   }
