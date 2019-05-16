@@ -14,7 +14,9 @@ type Mutation {
   createDeck(deckName: String!): Deck!
   deleteDeck(id: ID!): Deck!
   addFlashcardToDeck(flashcardId: ID!, deckId: ID!): Deck!
+  addFlashcardsToDeck(flashcardIds: [ID!]!, deckId: ID!): Deck!
   removeFlashcardFromDeck(flashcardId: ID!, deckId: ID!): Deck!
+  removeFlashcardsFromDeck(flashcardIds: [ID!]!, deckId: ID!): Deck!
   createFlashcard(id: ID!, comfortLevel: Int): Flashcard!
   deleteFlashcard(id: ID!): Flashcard!
 }
