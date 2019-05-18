@@ -19,6 +19,7 @@ type Mutation {
   removeFlashcardsFromDeck(flashcardIds: [ID!]!, deckId: ID!): Deck!
   createFlashcard(id: ID!, comfortLevel: Int): Flashcard!
   deleteFlashcard(id: ID!): Flashcard!
+  changeFlashcardComfortLevel(id: ID!, comfortLevel: Int!): Flashcard!
 }
 
 input QueryUsersInput {

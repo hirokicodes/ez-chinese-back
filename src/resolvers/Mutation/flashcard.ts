@@ -51,5 +51,35 @@ export const flashcard = {
     return ctx.prisma.deleteFlashcard({
       id
     });
+  },
+
+  async changeFlashcardComfortLevel(
+    parent,
+    { id, comfortLevel },
+    ctx: Context
+  ) {
+    const userId = getUserId(ctx);
+
+    const isUser = await ctx.prisma.$exists.flashcard({
+      id,
+      user: {
+        id: userId
+      }
+    });
+
+    if (!isUser) {
+      throw new Error(
+        "Flashcard does not exist or you are not the flashcard's user"
+      );
+    }
+
+    return ctx.prisma.updateFlashcard({
+      where: {
+        id
+      },
+      data: {
+        comfortLevel
+      }
+    });
   }
 };
