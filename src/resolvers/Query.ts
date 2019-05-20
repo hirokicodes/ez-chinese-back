@@ -61,6 +61,12 @@ export const Query = {
     let chineseTextArray: Hanzi[] = [];
 
     if (data) {
+      const hanziData = data.reduce((accumulator, currentHanzi) => {
+        accumulator[currentHanzi.simplified] = currentHanzi;
+        accumulator[currentHanzi.traditional] = currentHanzi;
+        return accumulator;
+      });
+
       for (let i: number = 0; i < args.text.length; ) {
         const textRemaining = args.text.slice(i);
         let textToCheck: string = "";
@@ -71,11 +77,8 @@ export const Query = {
           } else {
             textToCheck = args.text.slice(i, -endI);
           }
-          const hanziObject = data.find(
-            hanzi =>
-              hanzi.simplified === textToCheck ||
-              hanzi.traditional === textToCheck
-          );
+
+          const hanziObject = hanziData[textToCheck];
           if (hanziObject) {
             chineseTextArray.push(hanziObject);
             endI = textRemaining.length;
