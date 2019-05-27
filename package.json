@@ -3,6 +3,7 @@
   "scripts": {
     "start": "dotenv -- nodemon -e ts,graphql -x ts-node src/index.ts",
     "debug": "dotenv -- nodemon -e ts,graphql -x ts-node --inspect src/index.ts",
+    "gen-prisma-client": "prisma generate --env-file ./.env.development",
     "build": "rimraf dist && tsc"
   },
   "dependencies": {

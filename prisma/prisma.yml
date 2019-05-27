@@ -1,9 +1,11 @@
 # Specifies the HTTP endpoint of your Prisma API (deployed to a Prisma Demo server).
 # endpoint: https://us1.prisma.sh/public-lieleopard-533/ez-chinese-back/dev
-endpoint: http://localhost:4466/default/default
+endpoint: ${env:PRISMA_ENDPOINT}
 
 # Defines your models, each model is mapped to the database as a table.
 datamodel: datamodel.prisma
+
+secret: ${env:PRISMA_SECRET}
 
 # Specifies the language and directory for the generated Prisma client.
 generate:
