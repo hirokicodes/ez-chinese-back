@@ -4,7 +4,9 @@
     "start": "dotenv -- nodemon -e ts,graphql -x ts-node src/index.ts",
     "debug": "dotenv -- nodemon -e ts,graphql -x ts-node --inspect src/index.ts",
     "gen-prisma-client": "prisma generate --env-file ./.env.development",
-    "build": "rimraf dist && tsc"
+    "serve": "node dist/index.js",
+    "build": "rimraf dist && tsc",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "bcryptjs": "2.4.3",
